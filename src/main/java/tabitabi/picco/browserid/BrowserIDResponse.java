@@ -8,13 +8,10 @@ package tabitabi.picco.browserid;
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-//package pt.webdetails.browserid;
-
 import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-//import org.apache.commons.lang.StringUtils;
 
 
 /**  
@@ -151,7 +148,6 @@ public class BrowserIDResponse {
     }
     
     public static Status parse(String value){
-      //if(StringUtils.equals(value, OK.value)){
       if(OK.value.equals(value)){
         return OK;
       }

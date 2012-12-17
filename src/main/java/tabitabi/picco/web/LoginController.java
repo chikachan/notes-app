@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import tabitabi.picco.model.Account;
 import tabitabi.picco.persistence.repository.AccountsRepository;
 
 @Controller
+@Slf4j
 public class LoginController {
 
 	public static final String AUDIENCE = "localhost";//TODO fix this
@@ -37,7 +40,8 @@ public class LoginController {
 
 		BrowserIDResponse loginRepsonse = verifier.verify(assertion, AUDIENCE);
 		Status status = loginRepsonse.getStatus();
-
+		log.debug("login response {}", status);
+		
 		if (status == Status.OK) {
 			renewSession(request);
 			String email = loginRepsonse.getEmail();
@@ -45,6 +49,7 @@ public class LoginController {
 			
 			if(account == null){
 				/* This account doesn't exist, let's create it */
+				log.debug("creating account {}",account);
 				account = new Account();
 				account.setEmail(loginRepsonse.getEmail());
 				account = accountsRepo.save(account);//TODO correct?
