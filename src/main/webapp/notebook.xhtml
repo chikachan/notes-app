@@ -1,0 +1,60 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:pm="http://primefaces.org/mobile"
+  contentType="text/html"
+    renderKitId="PRIMEFACES_MOBILE">
+
+    <pm:page title="Picco's notes">
+
+        <!-- Main View -->
+        <pm:view id="main" swatch="e">
+            <pm:header title="Picco's notes">
+                <f:facet name="right"><p:commandButton value="New" icon="plus" action="#{noteBook.initNew}" /></f:facet>
+            </pm:header>
+
+            <pm:content>
+                <h:form id="listNotesForm">
+                    <p:dataList id="notesList" value="#{notesView.notes}" var="note" type="inset">
+                        <p:column>
+                            <p:commandLink value="#{note.shortText}" update=":listNotesForm:noteDetail" oncomplete="PF('dlg').show()">
+                                <f:setPropertyActionListener value="#{note}" target="#{noteBook.note}" />
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataList>
+                    
+                    <p:dialog header="Note Details" widgetVar="dlg">
+                        <f:attribute name="contentSwatch" value="e" />
+                        <p:outputPanel id="noteDetail" style="padding:4px 10px">
+                            <h:outputText value="#{noteBook.note.text}" rendered="#{not empty noteBook.note}"/>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+            </pm:content>
+
+        </pm:view>
+
+        <!-- New Notes -->
+        <pm:view id="new" swatch="e">
+            <pm:header title="New Note">
+                <f:facet name="left"><p:button value="Back" icon="back" onclick="PrimeFaces.back()" /></f:facet>
+            </pm:header>
+
+            <pm:content>
+                <h:form id="newNoteForm">
+                    <p:inputTextarea id="noteText" value="#{noteBook.note.text}" />
+
+                    <p:separator />
+
+                    <p:commandButton value="Save" actionListener="#{noteBook.save}" update="noteText :listNotesForm:notesList" icon="check" oncomplete="PrimeFaces.back()" />
+
+                </h:form>
+            </pm:content>
+
+        </pm:view>
+
+    </pm:page>
+
+</f:view>
