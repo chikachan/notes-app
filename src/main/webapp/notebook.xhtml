@@ -9,11 +9,10 @@
     <pm:page title="Picco's notes">
 
         <!-- Main View -->
-        <pm:view id="main" swatch="e">
+        <pm:view id="mainView" swatch="e">
             <pm:header title="Picco's notes">
                 <f:facet name="right"><p:commandButton value="New" icon="plus" action="#{noteBook.initNew}" /></f:facet>
             </pm:header>
-
             <pm:content>
                 <h:form id="listNotesForm">
                     <p:dataList id="notesList" value="#{noteBook.notes}" var="note" type="inset">
@@ -27,16 +26,17 @@
                     <p:dialog header="Note Details" widgetVar="dlg">
                         <f:attribute name="contentSwatch" value="e" />
                         <p:outputPanel id="noteDetail" style="padding:4px 10px">
-                            <h:outputText value="#{noteBook.note.text}" rendered="#{1 == 1}"/>
+                            <h:outputText value="#{noteBook.note.text}" />
                         </p:outputPanel>
                     </p:dialog>
                 </h:form>
             </pm:content>
-
         </pm:view>
+        
+        
 
         <!-- New Notes -->
-        <pm:view id="new" swatch="e">
+        <pm:view id="createNoteView" swatch="e">
             <pm:header title="New Note">
             	<f:facet name="left"><p:button value="Back" icon="back" onclick="PrimeFaces.back()" /></f:facet>
             </pm:header>
@@ -44,14 +44,11 @@
             <pm:content>
                 <h:form id="newNoteForm">
                     <p:inputTextarea id="noteText" value="#{noteBook.note.text}" />
-
                     <p:separator />
-
-                    <p:commandButton value="Save" actionListener="#{noteBook.save}" update="noteText :listNotesForm:notesList" icon="check" oncomplete="PrimeFaces.back()" />
-
+                    <p:commandButton value="Save" actionListener="#{noteBook.save}" 
+                    	update="noteText :listNotesForm:notesList" icon="check" oncomplete="PrimeFaces.back()" />
                 </h:form>
             </pm:content>
-
         </pm:view>
 
     </pm:page>

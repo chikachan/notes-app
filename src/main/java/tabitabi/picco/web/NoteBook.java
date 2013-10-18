@@ -15,8 +15,9 @@ import tabitabi.picco.model.Note;
 @SessionScoped
 public class NoteBook implements Serializable{
 
+  public static final String CREATE_NOTE_VIEW = "pm:createNoteView";
   
-  private static final long serialVersionUID = 8967712157344853040L;
+  private static final long serialVersionUID = 8967712157344853041L;
 
   private Note note = new Note();
 
@@ -33,7 +34,7 @@ public class NoteBook implements Serializable{
   
   public String initNew(){
     note = new Note();
-    return "pm:new";
+    return CREATE_NOTE_VIEW;
   }
   
   public NoteBook(){
