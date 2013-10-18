@@ -6,12 +6,12 @@
   xmlns:pm="http://primefaces.org/mobile"
   contentType="text/html">
 
-    <pm:page title="Picco's notes">
+    <pm:page title="#{msgs['NOTEBOOK_PAGE_TITLE']}">
 
         <!-- Main View -->
         <pm:view id="mainView" swatch="e">
-            <pm:header title="Picco's notes">
-                <f:facet name="right"><p:commandButton value="New" icon="plus" action="#{noteBook.initNew}" /></f:facet>
+            <pm:header title="#{msgs['MAIN_VIEW_TITLE']}">
+                <f:facet name="right"><p:commandButton value="#{msgs['NEW']}" icon="plus" action="#{noteBook.initNew}" /></f:facet>
             </pm:header>
             <pm:content>
                 <h:form id="listNotesForm">
@@ -37,15 +37,15 @@
 
         <!-- New Notes -->
         <pm:view id="createNoteView" swatch="e">
-            <pm:header title="New Note">
-            	<f:facet name="left"><p:button value="Back" icon="back" onclick="PrimeFaces.back()" /></f:facet>
+            <pm:header title="#{msgs['CREATE_NOTE_VIEW_TITLE']}">
+            	<f:facet name="left"><p:button value="#{msgs['BACK']}" icon="back" onclick="PrimeFaces.back()" /></f:facet>
             </pm:header>
 
             <pm:content>
                 <h:form id="newNoteForm">
                     <p:inputTextarea id="noteText" value="#{noteBook.note.text}" />
                     <p:separator />
-                    <p:commandButton value="Save" actionListener="#{noteBook.save}" 
+                    <p:commandButton value="#{msgs['SAVE']}" actionListener="#{noteBook.save}" 
                     	update="noteText :listNotesForm:notesList" icon="check" oncomplete="PrimeFaces.back()" />
                 </h:form>
             </pm:content>
