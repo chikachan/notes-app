@@ -43,6 +43,7 @@ public class NoteBook implements Serializable{
   public void save(){
     if (!notes.contains(note)){
       note.setLastModification(new DateTime());
+      note.setReceiveDate(new DateTime());
       notes.add(note);
     }
     note = new Note();
