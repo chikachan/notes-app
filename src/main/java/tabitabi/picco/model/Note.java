@@ -5,15 +5,16 @@ import java.util.Objects;
 
 import org.joda.time.DateTime;
 
-public class Note implements Serializable{
+public class Note implements Serializable
+{
 
    private static final long serialVersionUID = -3686198567393508760L;
 
- private DateTime lastModification;
-  private DateTime receiveDate;
-   private String text;
+   private DateTime lastModification;
 
-  
+   private DateTime receiveDate;
+
+   private String text;
 
    @Override
    public boolean equals(Object obj)
@@ -43,16 +44,15 @@ public class Note implements Serializable{
    {
       return lastModification;
    }
-   
+
    public DateTime getReceiveDate()
    {
       return receiveDate;
    }
-    
 
    public String getText()
    {
-      return text+receiveDate;
+      return text + receiveDate;
    }
 
    public int hashCode()
@@ -64,10 +64,12 @@ public class Note implements Serializable{
    {
       this.lastModification = lastModification;
    }
-public void setReceiveDate(final DateTime receiveDate)
+
+   public void setReceiveDate(final DateTime receiveDate)
    {
       this.receiveDate = receiveDate;
    }
+
    public void setText(final String text)
    {
       this.text = text;
