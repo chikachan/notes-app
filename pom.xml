@@ -4,7 +4,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   
   <groupId>com.tabitabi-podcast.picco</groupId>
   <artifactId>notes-app</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <packaging>war</packaging>
   <name>notes-app</name>
   <description>Picco's Notes Web App for mobile devices</description>
