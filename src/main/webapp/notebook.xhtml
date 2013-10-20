@@ -1,3 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <f:view xmlns="http://www.w3.org/1999/xhtml"
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:h="http://java.sun.com/jsf/html"
@@ -38,7 +40,7 @@
         <!-- New Notes -->
         <pm:view id="createNoteView" swatch="e">
             <pm:header title="#{msgs['CREATE_NOTE_VIEW_TITLE']}">
-            	<f:facet name="left"><p:button value="#{msgs['BACK']}" icon="back" onclick="PrimeFaces.back()" /></f:facet>
+              <f:facet name="left"><p:button value="#{msgs['BACK']}" icon="back" onclick="PrimeFaces.back()" /></f:facet>
             </pm:header>
 
             <pm:content>
@@ -46,7 +48,7 @@
                     <p:inputTextarea id="noteText" value="#{noteBook.note.text}" />
                     <p:separator />
                     <p:commandButton value="#{msgs['SAVE']}" actionListener="#{noteBook.save}" 
-                    	update="noteText :listNotesForm:notesList" icon="check" oncomplete="PrimeFaces.back()" />
+                      update="noteText :listNotesForm:notesList" icon="check" oncomplete="PrimeFaces.back()" />
                 </h:form>
             </pm:content>
         </pm:view>
