@@ -10,11 +10,12 @@
 		
 		<locale-config>
 			<default-locale>en</default-locale>
+			<supported-locale>en</supported-locale>
 			<supported-locale>ja</supported-locale>
 		</locale-config>
 		
 		<resource-bundle>
-         <base-name>tabitabi.picco.messages</base-name>
+         <base-name>tabitabi.picco.web.util.Messages</base-name>
          <var>msgs</var>
       </resource-bundle>
       
