@@ -4,45 +4,44 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui"
   xmlns:pm="http://primefaces.org/mobile"
-  contentType="text/html">
+  contentType="text/html" encoding="utf-8">
+
+	<h:head>
+		<meta charset="utf-8" />
+	</h:head>
 
     <pm:page title="#{msgs['NOTEBOOK_PAGE_TITLE']}">
 
-        <!-- Main View -->
+		<!-- Main View -->
         <pm:view id="mainView" swatch="e">
             <pm:header title="#{msgs['MAIN_VIEW_TITLE']}">
-                <f:facet name="right"><p:commandButton value="新しい感じにしたいと思います、１００％たぶん" icon="plus" action="#{noteBook.initNew}" /></f:facet>
+                <f:facet name="right">
+                	<p:commandButton value="新しい感じにしたいと思います、１００％たぶん" icon="plus" action="#{noteBook.initNew}" />
+                </f:facet>
             </pm:header>
             <pm:content>
                 <h:form id="listNotesForm">
                     <p:dataList id="notesList" value="#{noteBook.notes}" var="note" type="inset">
                         <p:column>
-                            <p:commandLink value="#{note.text}" update=":listNotesForm:noteDetail" oncomplete="dlg.show()">
+                            <p:commandLink value="#{note.text}" update=":editNoteForm" action="pm:editNoteView">
                                 <f:setPropertyActionListener value="#{note}" target="#{noteBook.note}" />
                             </p:commandLink>
                         </p:column>
                     </p:dataList>
-                    
-                    <p:dialog header="Note Details" widgetVar="dlg">
-                        <f:attribute name="contentSwatch" value="e" />
-                        <p:outputPanel id="noteDetail" style="padding:4px 10px">
-                            <h:outputText value="#{noteBook.note.text}" />
-                        </p:outputPanel>
-                    </p:dialog>
                 </h:form>
             </pm:content>
         </pm:view>
         
         
 
-        <!-- New Notes -->
-        <pm:view id="createNoteView" swatch="e">
-            <pm:header title="#{msgs['CREATE_NOTE_VIEW_TITLE']}">
+        <!-- Edit Note -->
+        <pm:view id="editNoteView" swatch="e">
+            <pm:header title="Edit note">
               <f:facet name="left"><p:button value="#{msgs['BACK']}" icon="back" onclick="PrimeFaces.back()" /></f:facet>
             </pm:header>
 
             <pm:content>
-                <h:form id="newNoteForm">
+                <h:form id="editNoteForm">
                     <p:inputTextarea id="noteText" value="#{noteBook.note.text}" />
                     <p:separator />
                     <p:commandButton value="#{msgs['SAVE']}" actionListener="#{noteBook.save}" 
@@ -50,6 +49,7 @@
                 </h:form>
             </pm:content>
         </pm:view>
+        
 
     </pm:page>
 
