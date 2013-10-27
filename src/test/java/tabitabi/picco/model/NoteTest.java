@@ -48,6 +48,11 @@ public class NoteTest {
     note2 = new Note();
     note1.setText("Testst");
     assertFalse("Equals text", note1.equals(note2));
+    
+    note1 = new Note();
+    note2 = new Note();
+    note1.setReceivingDate(new DateTime());
+    assertFalse("Equals Receiving Date", note1.equals(note2));
   }
   
   @Test

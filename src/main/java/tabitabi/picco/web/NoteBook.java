@@ -17,7 +17,7 @@ public class NoteBook implements Serializable{
 
   public static final String CREATE_NOTE_VIEW = "pm:editNoteView";
   
-  private static final long serialVersionUID = 8967712157344853042L;
+  private static final long serialVersionUID = 8967712157344853043L;
 
   private Note note = new Note();
 
@@ -43,7 +43,7 @@ public class NoteBook implements Serializable{
   public void save(){
     if (!notes.contains(note)){
       note.setLastModification(new DateTime());
-      note.setReceiveDate(new DateTime());
+      note.setReceivingDate(new DateTime());
       notes.add(note);
     }
     note = new Note();

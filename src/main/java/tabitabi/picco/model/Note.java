@@ -8,11 +8,11 @@ import org.joda.time.DateTime;
 public class Note implements Serializable
 {
 
-   private static final long serialVersionUID = -3686198567393508760L;
+   private static final long serialVersionUID = -3686198567393508761L;
 
    private DateTime lastModification;
 
-   private DateTime receiveDate;
+   private DateTime receivingDate;
 
    private String text;
 
@@ -36,8 +36,9 @@ public class Note implements Serializable
 
       Note otherNote = (Note)obj;
 
-      return (Objects.equals(otherNote.lastModification, this.lastModification) && Objects.equals(otherNote.text,
-         this.text));
+      return Objects.equals(otherNote.lastModification, this.lastModification) 
+          && Objects.equals(otherNote.text, this.text) 
+          && Objects.equals(otherNote.receivingDate, this.receivingDate);
    }
 
    public DateTime getLastModification()
@@ -45,19 +46,19 @@ public class Note implements Serializable
       return lastModification;
    }
 
-   public DateTime getReceiveDate()
+   public DateTime getReceivingDate()
    {
-      return receiveDate;
+      return receivingDate;
    }
 
    public String getText()
    {
-      return text + receiveDate;
+      return text + receivingDate;
    }
 
    public int hashCode()
    {
-      return Objects.hash(text, lastModification);
+      return Objects.hash(text, lastModification, receivingDate);
    }
 
    public void setLastModification(final DateTime lastModification)
@@ -65,9 +66,9 @@ public class Note implements Serializable
       this.lastModification = lastModification;
    }
 
-   public void setReceiveDate(final DateTime receiveDate)
+   public void setReceivingDate(final DateTime receiveDate)
    {
-      this.receiveDate = receiveDate;
+      this.receivingDate = receiveDate;
    }
 
    public void setText(final String text)
