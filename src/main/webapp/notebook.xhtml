@@ -36,8 +36,10 @@
 
         <!-- Edit Note -->
         <pm:view id="editNoteView" swatch="e">
-            <pm:header title="EDIT_MESSAGE=">
-              <f:facet name="left"><p:button value="#{msgs['BACK']}" icon="back" onclick="PrimeFaces.back()" /></f:facet>
+            <pm:header title="#{msgs['EDIT_MESSAGE']}" >
+              <f:facet name="left">
+                <p:button value="#{msgs['BACK']}" icon="back" onclick="PrimeFaces.back()" />
+              </f:facet>
             </pm:header>
 
             <pm:content>
