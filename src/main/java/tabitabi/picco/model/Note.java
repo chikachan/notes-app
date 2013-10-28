@@ -10,9 +10,7 @@ public class Note implements Serializable
    private static final long serialVersionUID = 3686198567393508762L;
 
    private Date lastModification;
-
    private Date receivingDate;
-
    private String text;
 
    @Override

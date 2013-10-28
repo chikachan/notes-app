@@ -52,7 +52,8 @@
             <pm:content>
                 <h:form id="editNoteForm">
                     <p:inputTextarea id="noteText" value="#{noteBook.note.text}" />
-                    <p:calendar value="#{noteBook.note.receivingDate}" mode="inline"  pattern="MMM/dd/yyyy" />
+                    <p:calendar value="#{noteBook.note.receivingDate}" mode="inline"  
+                    	pattern="MMM/dd/yyyy"  mindate="#{noteBook.minDate}" maxdate="#{noteBook.maxDate}" />
                     <p:separator />
                     <p:commandButton value="#{msgs['SAVE']}" actionListener="#{noteBook.save}" 
                       update="noteText :listNotesForm:notesList" icon="check" oncomplete="PrimeFaces.back()" />
