@@ -8,9 +8,16 @@
 
   <h:head>
     <meta charset="utf-8" />
+    <meta http-equiv="refresh" content="#{session.maxInactiveInterval};url=#{request.getContextPath()}/mobile/pf_viewExpired.jsf" />
   </h:head>
 
     <pm:page title="#{msgs['NOTEBOOK_PAGE_TITLE']}">
+        <f:facet name="postinit">
+          <h:outputStylesheet library="primefaces-mobile"
+            name="calendar/calendar.css" />
+          <h:outputScript library="primefaces-mobile"
+            name="calendar/calendar.js" />
+        </f:facet>
 
     <!-- Main View -->
         <pm:view id="mainView" swatch="e">
@@ -34,7 +41,7 @@
         
         
 
-        <!-- Edit Note -->
+        <!-- Edit Note View -->
         <pm:view id="editNoteView" swatch="e">
             <pm:header title="#{msgs['EDIT_MESSAGE']}" >
               <f:facet name="left">
@@ -45,6 +52,7 @@
             <pm:content>
                 <h:form id="editNoteForm">
                     <p:inputTextarea id="noteText" value="#{noteBook.note.text}" />
+                    <p:calendar value="#{noteBook.note.receivingDate.toDate()}" mode="inline"  pattern="MMM/dd/yyyy" />
                     <p:separator />
                     <p:commandButton value="#{msgs['SAVE']}" actionListener="#{noteBook.save}" 
                       update="noteText :listNotesForm:notesList" icon="check" oncomplete="PrimeFaces.back()" />
