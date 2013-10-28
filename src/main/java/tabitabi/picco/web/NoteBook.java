@@ -2,12 +2,11 @@ package tabitabi.picco.web;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-
-import org.joda.time.DateTime;
 
 import tabitabi.picco.model.Note;
 
@@ -17,7 +16,7 @@ public class NoteBook implements Serializable{
 
   public static final String CREATE_NOTE_VIEW = "pm:editNoteView";
   
-  private static final long serialVersionUID = 8967712157344853043L;
+  private static final long serialVersionUID = 8967712157344853044L;
 
   private Note note = new Note();
 
@@ -42,8 +41,7 @@ public class NoteBook implements Serializable{
   
   public void save(){
     if (!notes.contains(note)){
-      note.setLastModification(new DateTime());
-      note.setReceivingDate(new DateTime());
+      note.setLastModification(new Date());
       notes.add(note);
     }
     note = new Note();

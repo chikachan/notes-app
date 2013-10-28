@@ -3,7 +3,8 @@ package tabitabi.picco.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.joda.time.DateTime;
+import java.util.Date;
+
 import org.junit.Test;
 
 
@@ -37,11 +38,11 @@ public class NoteTest {
     
     note1 = new Note();
     note2 = new Note();
-    long dateTime = new DateTime().getMillis();
-    note1.setLastModification(new  DateTime(dateTime));
-    note2.setLastModification(new  DateTime(dateTime));
+    long dateTime = new Date().getTime();
+    note1.setLastModification(new  Date(dateTime));
+    note2.setLastModification(new  Date(dateTime));
     assertTrue("Not equals date 1", note1.equals(note2));
-    note1.setLastModification(new  DateTime(dateTime+1));
+    note1.setLastModification(new  Date(dateTime+1));
     assertFalse("Equals date 2", note1.equals(note2));
     
     note1 = new Note();
@@ -51,7 +52,7 @@ public class NoteTest {
     
     note1 = new Note();
     note2 = new Note();
-    note1.setReceivingDate(new DateTime());
+    note1.setReceivingDate(new Date());
     assertFalse("Equals Receiving Date", note1.equals(note2));
   }
   

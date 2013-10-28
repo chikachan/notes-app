@@ -1,18 +1,17 @@
 package tabitabi.picco.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
-
-import org.joda.time.DateTime;
 
 public class Note implements Serializable
 {
 
-   private static final long serialVersionUID = -3686198567393508761L;
+   private static final long serialVersionUID = 3686198567393508762L;
 
-   private DateTime lastModification;
+   private Date lastModification;
 
-   private DateTime receivingDate;
+   private Date receivingDate;
 
    private String text;
 
@@ -41,12 +40,12 @@ public class Note implements Serializable
           && Objects.equals(otherNote.receivingDate, this.receivingDate);
    }
 
-   public DateTime getLastModification()
+   public Date getLastModification()
    {
       return lastModification;
    }
 
-   public DateTime getReceivingDate()
+   public Date getReceivingDate()
    {
       return receivingDate;
    }
@@ -61,12 +60,12 @@ public class Note implements Serializable
       return Objects.hash(text, lastModification, receivingDate);
    }
 
-   public void setLastModification(final DateTime lastModification)
+   public void setLastModification(final Date lastModification)
    {
       this.lastModification = lastModification;
    }
 
-   public void setReceivingDate(final DateTime receiveDate)
+   public void setReceivingDate(final Date receiveDate)
    {
       this.receivingDate = receiveDate;
    }
