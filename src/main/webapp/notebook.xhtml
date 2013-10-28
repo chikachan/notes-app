@@ -6,17 +6,17 @@
   xmlns:pm="http://primefaces.org/mobile"
   contentType="text/html" encoding="utf-8">
 
-	<h:head>
-		<meta charset="utf-8" />
-	</h:head>
+  <h:head>
+    <meta charset="utf-8" />
+  </h:head>
 
     <pm:page title="#{msgs['NOTEBOOK_PAGE_TITLE']}">
 
-		<!-- Main View -->
+    <!-- Main View -->
         <pm:view id="mainView" swatch="e">
             <pm:header title="#{msgs['MAIN_VIEW_TITLE']}">
                 <f:facet name="right">
-                	<p:commandButton value="新しい感じにしたいと思います、１００％たぶん" icon="plus" action="#{noteBook.initNew}" />
+                  <p:commandButton value="#{msgs['NEW']}" icon="plus" action="#{noteBook.initNew}" />
                 </f:facet>
             </pm:header>
             <pm:content>
