@@ -17,6 +17,15 @@
             name="calendar/calendar.css" />
           <h:outputScript library="primefaces-mobile"
             name="calendar/calendar.js" />
+             <script type="text/javascript">
+                (function($) {
+                    $.mobiscroll.i18n['ja_JP'] = $.extend($.mobiscroll.i18n['ja_JP'], {                
+                        dayText: '日',
+                        monthText: '月',
+                        yearText: '年'      
+                    });
+                })(jQuery);
+            </script>          
         </f:facet>
 
     <!-- Main View -->
@@ -53,7 +62,8 @@
                 <h:form id="editNoteForm">
                     <p:inputTextarea id="noteText" value="#{noteBook.note.text}" />
                     <p:calendar value="#{noteBook.note.receivingDate}" mode="inline"  
-                    	pattern="MMM/dd/yyyy"  mindate="#{noteBook.minDate}" maxdate="#{noteBook.maxDate}" />
+                    	pattern="#{noteBook.dateFormat}"  mindate="#{noteBook.minDate}" 
+                    	maxdate="#{noteBook.maxDate}"  locale="#{noteBook.calendarLocale}" />
                     <p:separator />
                     <p:commandButton value="#{msgs['SAVE']}" actionListener="#{noteBook.save}" 
                       update="noteText :listNotesForm:notesList" icon="check" oncomplete="PrimeFaces.back()" />
