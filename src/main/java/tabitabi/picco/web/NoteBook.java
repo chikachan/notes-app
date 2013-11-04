@@ -17,12 +17,12 @@ import tabitabi.picco.model.Note;
 @SessionScoped
 public class NoteBook implements Serializable{
   
-  private static final long serialVersionUID = 8967712157344853046L;
+  private static final long serialVersionUID = 8967712157344853047L;
 
   public static final String CREATE_NOTE_VIEW = "pm:editNoteView";
-  private static final String DEFAULT_DATE_FORMAT = "MMM/dd/yyyy";
+  private static final String DEFAULT_DATE_FORMAT = "MMM/dd/yyyy HH:mm";
   private static final String DEFAULT_LOCALE = "en_US";
-  private static final String JAPANESE_DATE_FORMAT = "yyyy/MM/dd";
+  private static final String JAPANESE_DATE_FORMAT = "yyyy/MM/dd HH:mm";
   private static final String JAPANESE_LOCALE = "ja_JP";
   private final SimpleDateFormat minDateFrmtr = new SimpleDateFormat("MM/dd/yy");
   private static final String MAX_DATE = "12/31/21";

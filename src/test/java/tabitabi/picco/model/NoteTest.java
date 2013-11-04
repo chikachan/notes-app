@@ -4,14 +4,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
+import java.util.HashSet;
 
 import org.junit.Test;
 
 
 public class NoteTest {
 
-  
-  
   @Test
   public void equalsTest(){
     Note note1 = new Note();
@@ -58,7 +57,33 @@ public class NoteTest {
   
   @Test
   public void hashCodeTest(){
-    
+	  String text = "text";
+	  Date rec = new Date();
+	  Date mod = new Date();
+	  
+	  Note note1 = new Note();
+	  note1.setText(text);
+	  note1.setLastModification(mod);
+	  note1.setReceivingDate(rec);
+	  
+	  Note note2 = new Note();
+	  note2.setText(text);
+	  note2.setLastModification(mod);
+	  assertFalse("Hash code without receiving date is equals",
+				note1.hashCode() == note2.hashCode());
+	  note2.setReceivingDate(rec);
+		assertTrue("Hash code is not equals",
+				note1.hashCode() == note2.hashCode());
+		
+	  HashSet<Note> notes = new HashSet<>();
+	  notes.add(note1);
+	  notes.add(note1);
+	  assertTrue("Size is one", notes.size() == 1);
+	  notes.add(note2);
+	  assertTrue("Size is one with note2", notes.size() == 1);
+	  note2.setText("");
+	  notes.add(note2);
+	  assertTrue("Size is two", notes.size() == 2);
   }
   
 }
