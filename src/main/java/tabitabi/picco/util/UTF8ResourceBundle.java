@@ -8,13 +8,15 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 public class UTF8ResourceBundle extends ResourceBundle implements Serializable {
 
-	private static final long serialVersionUID = 2331608237039550252L;
+	private static final long serialVersionUID = 2331608237039550253L;
 
 	private static final String BUNDLE_EXTENSION = "properties";
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
@@ -29,6 +31,18 @@ public class UTF8ResourceBundle extends ResourceBundle implements Serializable {
 		return parent.getKeys();
 	}
 
+	
+	public  Map<String, String> asMap() {
+        Map<String, String> map = new HashMap<>();
+ 
+        Enumeration<String> keys = getKeys();
+        while (keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            map.put(key, getString(key) );            
+        }        
+        return map;
+    }
+	
 	@Override
 	protected Object handleGetObject(final String key) {
 		return parent.getObject(key);

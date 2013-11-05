@@ -4,11 +4,19 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Note implements Serializable
 {
 
-   private static final long serialVersionUID = 3686198567393508762L;
+   private static final long serialVersionUID = 3686198567393508763L;
 
+   @Id
+   @GeneratedValue
+   private long id;
    private Date lastModification;
    private Date receivingDate;
    private String text;
@@ -33,7 +41,8 @@ public class Note implements Serializable
 
       Note otherNote = (Note)obj;
 
-      return Objects.equals(otherNote.lastModification, this.lastModification) 
+      return (otherNote.id == this.id)
+    	  &&  Objects.equals(otherNote.lastModification, this.lastModification) 
           && Objects.equals(otherNote.text, this.text) 
           && Objects.equals(otherNote.receivingDate, this.receivingDate);
    }
@@ -55,7 +64,7 @@ public class Note implements Serializable
 
    public int hashCode()
    {
-      return Objects.hash(text, lastModification, receivingDate);
+      return Objects.hash(id, text, lastModification, receivingDate);
    }
 
    public void setLastModification(final Date lastModification)

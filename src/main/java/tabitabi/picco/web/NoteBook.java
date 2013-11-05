@@ -3,6 +3,7 @@ package tabitabi.picco.web;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -57,7 +58,10 @@ public class NoteBook implements Serializable{
   }
   
   public String getMinDate(){
-    return minDateFrmtr.format(new Date());
+	  Calendar calendar = Calendar.getInstance();
+	    calendar.add(Calendar.DAY_OF_YEAR, 2);
+	   
+    return minDateFrmtr.format(calendar.getTime());
   }
   
   public Note getNote(){
@@ -70,7 +74,9 @@ public class NoteBook implements Serializable{
   
   public String initNew(){
     note = new Note();
-    note.setReceivingDate(new Date());
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_YEAR, 2);
+    note.setReceivingDate(calendar.getTime());
     return CREATE_NOTE_VIEW;
   }
   
