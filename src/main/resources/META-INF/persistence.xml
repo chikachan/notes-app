@@ -11,7 +11,10 @@
 			<property name="javax.persistence.jdbc.driver" value="" />
 			<property name="javax.persistence.jdbc.url" value="" />
 			
-			<property name="eclipselink.logging.level" value="FINEST"/>			
+			<property name="eclipselink.logging.level" value=""/>
+			<property name="eclipselink.logging.level.sql" value=""/>
+			<property name="eclipselink.logging.parameters" value=""/>
+			<property name="eclipselink.logging.thread" value=""/>			
 		</properties>
 
 	</persistence-unit>

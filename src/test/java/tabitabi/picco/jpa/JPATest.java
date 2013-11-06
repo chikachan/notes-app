@@ -1,18 +1,22 @@
 package tabitabi.picco.jpa;
 
+import static org.junit.Assert.assertEquals;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.Locale;
-import java.util.Map;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import tabitabi.picco.model.Note;
 import tabitabi.picco.util.UTF8ResourceBundle;
 
 public class JPATest {
@@ -67,9 +71,24 @@ public class JPATest {
 
 	@Test
 	public void test() {
-		emFactory.createEntityManager();
-		Map<String, Object> properties2 = emFactory.getProperties();
-		properties2.size();
+		final String testText = "ABCS";
+		Note n = new Note();
+		n.setText(testText);
+		EntityManager em = emFactory.createEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("DELETE FROM note").executeUpdate();
+		em.persist(n);
+		em.flush();
+		em.getTransaction().commit();
+		em.close();
+		
+		em = emFactory.createEntityManager();
+		Query query = em.createNativeQuery("SELECT * FROM note LIMIT 1",Note.class);
+		Note singleResult = (Note) query.getSingleResult();
+		System.out.println(singleResult.getText());
+		System.out.println(testText);
+		assertEquals("Text is not equals", testText,  singleResult.getText() );
+		
 	}
 
 }

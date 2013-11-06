@@ -1,28 +1,17 @@
 package tabitabi.picco.model;
 
-import static javax.persistence.TemporalType.DATE;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-
-@Entity
 public class Note implements Serializable
 {
 
-   private static final long serialVersionUID = 3686198567393508763L;
+   private static final long serialVersionUID = 3686198567393508765L;
 
-   @Id
-   @GeneratedValue
+ 
    private long id;
-   @Temporal(DATE)
    private Date lastModification;
-   @Temporal(DATE)
    private Date receivingDate;
    private String text;
 
