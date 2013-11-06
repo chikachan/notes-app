@@ -1,5 +1,7 @@
 package tabitabi.picco.model;
 
+import static javax.persistence.TemporalType.DATE;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -7,6 +9,7 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 @Entity
 public class Note implements Serializable
@@ -17,7 +20,9 @@ public class Note implements Serializable
    @Id
    @GeneratedValue
    private long id;
+   @Temporal(DATE)
    private Date lastModification;
+   @Temporal(DATE)
    private Date receivingDate;
    private String text;
 

@@ -1,3 +1,6 @@
 CREATE TABLE note ( 
-	text VARCHAR(2000) 
+	id INT,
+	lastmodification DATETIME,
+	receivingdate DATETIME,
+	text VARCHAR(2000)
 );

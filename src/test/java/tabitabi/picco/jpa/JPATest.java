@@ -15,26 +15,25 @@ import org.junit.Test;
 
 import tabitabi.picco.util.UTF8ResourceBundle;
 
-//http://java.dzone.com/articles/spring-3-makes-use-embedded-easy
-//http://docs.spring.io/spring/docs/3.2.4.RELEASE/spring-framework-reference/html/orm.html#orm-jpa
-//http://www.vogella.com/articles/JavaPersistenceAPI/article.html
-//http://spring.io/guides/gs/accessing-data-jpa/
-
 public class JPATest {
 
 	private static final UTF8ResourceBundle properties = new UTF8ResourceBundle(
 			"notes-app-TEST", Locale.getDefault());
-	private static EntityManagerFactory emFactory= null;
+	private static EntityManagerFactory emFactory = null;
 
 	@BeforeClass
 	public static void setUp() {
-		setUpDB();
-		setUpEntityManager();
+		try {
+			setUpDB();
+			setUpEntityManager();
+		} catch (Exception exc) {
+			throw new TestingException(exc);
+		}
 	}
-	
+
 	@AfterClass
-	public static void tearDown(){	
-		if(emFactory != null){
+	public static void tearDown() {
+		if (emFactory != null) {
 			emFactory.close();
 		}
 	}
@@ -42,14 +41,14 @@ public class JPATest {
 	private static void setUpDB() {
 		try {
 
-			Class.forName(properties.getString("db.driver"));
-			String dbURL = new StringBuilder(properties.getString("db.url")
-					.replace("IFEXISTS=TRUE", ""))
+			Class.forName(properties.getString("javax.persistence.jdbc.driver"));
+			String dbURL = new StringBuilder(properties.getString(
+					"javax.persistence.jdbc.url").replace("IFEXISTS=TRUE", ""))
 					.append(String.format("INIT=RUNSCRIPT FROM '%s'\\;",
 							ClassLoader.getSystemResource("ddl.sql")))
-					.append(String.format("RUNSCRIPT FROM '%s'",
+					.append(String.format("RUNSCRIPT FROM '%s';",
 							ClassLoader.getSystemResource("dml.sql")))
-					.toString();
+					.append("DB_CLOSE_DELAY=-1").toString();
 
 			Connection connection = DriverManager.getConnection(dbURL);
 			Statement stmt = connection.createStatement();
@@ -60,15 +59,15 @@ public class JPATest {
 		}
 	}
 
-	private static void setUpEntityManager() {		
-		 emFactory = Persistence.createEntityManagerFactory(
-				properties.getString("persistence-unit-name"),
-				properties.asMap());	
+	private static void setUpEntityManager() {
+
+		emFactory = Persistence.createEntityManagerFactory("notes-app",
+				properties.asMap());
 	}
 
 	@Test
 	public void test() {
-		//emFactory.createEntityManager();
+		emFactory.createEntityManager();
 		Map<String, Object> properties2 = emFactory.getProperties();
 		properties2.size();
 	}
