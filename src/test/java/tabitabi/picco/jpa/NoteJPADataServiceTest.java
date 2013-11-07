@@ -2,6 +2,8 @@ package tabitabi.picco.jpa;
 
 import static org.junit.Assert.assertTrue;
 
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -14,12 +16,12 @@ import tabitabi.picco.service.NoteJPADataService;
 public class NoteJPADataServiceTest {
 	
 	
-	//@Autowired
+	@Resource
     private NoteJPADataService service;
 	
 	@Test
 	public void create(){
-		assertTrue(true);
+		assertTrue(service != null);
 	}
 
 }
