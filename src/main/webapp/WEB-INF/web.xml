@@ -6,14 +6,25 @@
   
   <display-name>Picco's notes</display-name>
   
+  <welcome-file-list>
+    <welcome-file>notebook.xhtml</welcome-file>
+  </welcome-file-list>
+  
+  
   <context-param>
     <param-name>javax.faces.PROJECT_STAGE</param-name>
     <param-value>Development</param-value>
   </context-param>
   
-  <welcome-file-list>
-    <welcome-file>notebook.xhtml</welcome-file>
-  </welcome-file-list>
+  <context-param>
+	<param-name>contextConfigLocation</param-name>
+	<param-value>/WEB-INF/spring/beans.xml</param-value>
+  </context-param>
+
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
   
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>

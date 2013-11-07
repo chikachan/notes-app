@@ -64,7 +64,6 @@ public class JPATest {
 	}
 
 	private static void setUpEntityManager() {
-
 		emFactory = Persistence.createEntityManagerFactory("notes-app",
 				properties.asMap());
 	}

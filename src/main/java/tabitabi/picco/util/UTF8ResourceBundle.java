@@ -11,12 +11,13 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 public class UTF8ResourceBundle extends ResourceBundle implements Serializable {
 
-	private static final long serialVersionUID = 2331608237039550253L;
+	private static final long serialVersionUID = 2331608237039550254L;
 
 	private static final String BUNDLE_EXTENSION = "properties";
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
@@ -42,6 +43,16 @@ public class UTF8ResourceBundle extends ResourceBundle implements Serializable {
         }        
         return map;
     }
+	
+	public Properties asProperties(){
+		Properties properties = new Properties();
+		Enumeration<String> keys = getKeys();
+        while (keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            properties.put(key, getString(key) );            
+        }        
+        return properties;
+	}
 	
 	@Override
 	protected Object handleGetObject(final String key) {
@@ -92,4 +103,19 @@ public class UTF8ResourceBundle extends ResourceBundle implements Serializable {
 
 	}
 
+	public static class UTF8Properties extends Properties {
+		
+		private static final long serialVersionUID = 7020601776586532691L;
+
+		public UTF8Properties(final UTF8ResourceBundle bundle){
+			super();			
+			Enumeration<String> keys = bundle.getKeys();
+	        while (keys.hasMoreElements()) {
+	            String key = keys.nextElement();
+	            put(key, bundle.getString(key) );            
+	        }        	        
+		}
+	}
+	
+	
 }
