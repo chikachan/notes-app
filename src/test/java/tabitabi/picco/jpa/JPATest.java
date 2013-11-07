@@ -16,6 +16,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import tabitabi.picco.TestingException;
 import tabitabi.picco.model.Note;
 import tabitabi.picco.util.UTF8ResourceBundle;
 

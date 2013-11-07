@@ -1,8 +1,8 @@
-package tabitabi.picco.jpa;
+package tabitabi.picco;
 
 public class TestingException extends RuntimeException {
 
-	private static final long serialVersionUID = 7753231750829210684L;
+	private static final long serialVersionUID = 7753231750829210685L;
 
 	public TestingException() {
 

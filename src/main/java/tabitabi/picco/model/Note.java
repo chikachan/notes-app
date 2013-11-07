@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Note implements Serializable
 {
 
-   private static final long serialVersionUID = 3686198567393508766L;
+   private static final long serialVersionUID = 3686198567393508767L;
 
  
    private long id;
@@ -41,6 +41,10 @@ public class Note implements Serializable
           && Objects.equals(otherNote.receivingDate, this.receivingDate);
    }
 
+   public long getId(){
+	return id;   
+   }
+   
    public Date getLastModification()
    {
       return lastModification;
@@ -61,6 +65,10 @@ public class Note implements Serializable
       return Objects.hash(id, text, lastModification, receivingDate);
    }
 
+   public void setId(long id){
+	   this.id = id;
+   }
+   
    public void setLastModification(final Date lastModification)
    {
       this.lastModification = lastModification;
