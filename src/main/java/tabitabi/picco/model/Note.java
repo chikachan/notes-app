@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Note implements Serializable
 {
 
-   private static final long serialVersionUID = 3686198567393508765L;
+   private static final long serialVersionUID = 3686198567393508766L;
 
  
    private long id;
@@ -53,7 +53,7 @@ public class Note implements Serializable
 
    public String getText()
    {
-      return text + receivingDate;
+      return text;
    }
 
    public int hashCode()
