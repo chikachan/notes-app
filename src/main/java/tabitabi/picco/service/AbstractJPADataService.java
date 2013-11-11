@@ -23,9 +23,11 @@ abstract class AbstractJPADataService<T, ID extends Serializable> implements
 	}
 
 	@Override
-	public T create(final T t) {
+	public void create(final T t) {
+		em.getTransaction().begin();
 		em.persist(t);
-		return t;
+		em.flush();
+		em.getTransaction().commit();
 	}
 
 	@Override

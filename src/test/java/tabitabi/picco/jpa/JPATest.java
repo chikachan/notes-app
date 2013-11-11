@@ -12,6 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.h2.tools.Server;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -41,9 +42,11 @@ public class JPATest {
 		if (emFactory != null) {
 			emFactory.close();
 		}
+		db.stop();
 	}
 
-	private static void setUpDB() {
+	static Server db = null;
+	public static void setUpDB() {
 		try {
 
 			Class.forName(properties.getString("javax.persistence.jdbc.driver"));
@@ -55,6 +58,13 @@ public class JPATest {
 							ClassLoader.getSystemResource("dml.sql")))
 					.append("DB_CLOSE_DELAY=-1").toString();
 
+			
+			final String[] args = new String[] {
+					"-tcpPort", "9090",
+					"-tcpAllowOthers","true" };
+					 
+					 db = org.h2.tools.Server.createTcpServer(args).start();
+			
 			Connection connection = DriverManager.getConnection(dbURL);
 			Statement stmt = connection.createStatement();
 			stmt.execute("SELECT 1");
@@ -69,7 +79,7 @@ public class JPATest {
 				properties.asMap());
 	}
 
-	@Test
+//	@Test
 	public void test() {
 		final String testText = "ABCS";
 		Note n = new Note();

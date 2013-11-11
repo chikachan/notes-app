@@ -5,7 +5,7 @@ import java.util.Collection;
 
 interface DataService<T, ID extends Serializable> {
    
-    T create(T t);
+    void create(T t);
     
     void delete(ID id);
     
