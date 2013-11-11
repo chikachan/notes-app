@@ -1,6 +1,5 @@
 package tabitabi.picco.jpa;
 
-
 import static org.junit.Assert.assertTrue;
 
 import javax.persistence.EntityManager;
@@ -16,17 +15,17 @@ import org.springframework.transaction.annotation.Transactional;
 import tabitabi.picco.config.JPAConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {JPAConfiguration.class})
+@ContextConfiguration(classes = { JPAConfiguration.class })
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
-public class NoteMappingIntegrationTests {
+public class NoteMappingIntegrationTest {
 
-  @Autowired
-  EntityManager manager;
+	@Autowired
+	EntityManager manager;
 
-  @Test
-  public void thatItemCustomMappingWorks() throws Exception {
-	  assertTrue(true);
-  }
+	@Test
+	public void thatItemCustomMappingWorks() throws Exception {
+		assertTrue(true);
+	}
 
 }

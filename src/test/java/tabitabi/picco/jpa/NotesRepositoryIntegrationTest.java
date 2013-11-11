@@ -18,7 +18,7 @@ import tabitabi.picco.persistence.repository.NotesRepository;
 @ContextConfiguration(classes = { JPAConfiguration.class })
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
-public class NotesRepositoryIntegrationTests {
+public class NotesRepositoryIntegrationTest {
 
 	@Autowired
 	NotesRepository notesRepository;
@@ -38,4 +38,4 @@ public class NotesRepositoryIntegrationTests {
 
 	}
 
-}
+}//  15223723 15223742  15223763
