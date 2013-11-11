@@ -7,7 +7,7 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity(name="NOTES")
+@Entity
 public class Note2 implements Serializable
 {
 
