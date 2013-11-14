@@ -1,8 +1,13 @@
 package tabitabi.picco.persistence.repository;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Test;
@@ -27,6 +32,21 @@ public class NotesRepositoryIntegrationTest {
 	NotesRepository repository;
 
 	@Test
+	public void thatDeletingNotesWorks(){
+		Note2 note = new Note2();
+		note.setLastModification(new Date());
+		note.setText("Test delete");
+		repository.save(note);
+		repository.delete(note.getId());
+		
+		Iterator<Note2> iterator = repository.findAll().iterator();
+		while(iterator.hasNext()){
+			assertFalse("Note wasn't deleted",iterator.next().equals(note));
+		}
+	}
+
+	
+	@Test
 	public void thatNotesRepositoryWorks() {
 		final int numberOfItems = 7;
 		final int minRange = 0;
@@ -42,8 +62,18 @@ public class NotesRepositoryIntegrationTest {
 			item.setLastModification(new Date());
 			notes.add(repository.save(item));
 		}
-
+		
+		Iterator<Note2> iterator = repository.findAll().iterator();
+		int foundItems = 0;
+		while(iterator.hasNext()){
+			assertTrue("Notes doesn'T match",notes.contains(iterator.next()));
+			foundItems++;
+		}
+		
+		assertEquals("The number of notes doesn't match", foundItems,
+				notes.size());
 		
 	}
-
+	
+	
 }

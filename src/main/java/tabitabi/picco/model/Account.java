@@ -16,8 +16,9 @@ import javax.persistence.JoinColumn;
 @Entity
 public class Account implements Serializable {
 
-	private static final long serialVersionUID = 3686198567393508760L;
+	private static final long serialVersionUID = 3686198567393508761L;
 
+	@Column(unique=true)
 	private String email;
 	@Id
 	@GeneratedValue
@@ -85,6 +86,11 @@ public class Account implements Serializable {
 	
 	public void setNotesIds(Set<Long> notesIds){
 		this.notesIds = notesIds;
+	}
+	
+	@Override
+	public String toString(){
+		return email;
 	}
 
 }
