@@ -20,11 +20,13 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import tabitabi.picco.persistence.repository.AccountsRepository;
 import tabitabi.picco.persistence.repository.NotesRepository;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "tabitabi.picco.persistence.repository", 
-	includeFilters = @ComponentScan.Filter(value = { NotesRepository.class }, 
+	includeFilters = @ComponentScan.Filter(value = { NotesRepository.class, 
+			AccountsRepository.class }, 
 	type = FilterType.ASSIGNABLE_TYPE))
 @EnableTransactionManagement
 public class JPAConfiguration {
@@ -41,7 +43,7 @@ public class JPAConfiguration {
 
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setGenerateDdl(true);
-
+		
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
 		factory.setPackagesToScan("tabitabi.picco.model");
@@ -66,7 +68,6 @@ public class JPAConfiguration {
 
 	@Bean
 	public HibernateExceptionTranslator hibernateExceptionTranslator() {
-		// TODO look at this
 		return new HibernateExceptionTranslator();
 	}
 }

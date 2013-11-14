@@ -4,24 +4,36 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Note2 implements Serializable
 {
 
-   private static final long serialVersionUID = 3686198567393508767L;
+   private static final long serialVersionUID = 3686198567393508768L;
 
- 
+
+   private long accountId;
    @Id
+   @GeneratedValue
    private long id;
    private Date lastModification;
    private Date receivingDate;
+   @Column(length=1024)
    private String text;
 
    public Note2(){}
    
+	public Note2(final Note2 other) {
+		accountId = other.accountId;
+		id = other.id;
+		lastModification = other.lastModification;
+		receivingDate = other.receivingDate;
+		text = other.text;
+	}
    
    @Override
    public boolean equals(Object obj)
@@ -49,6 +61,10 @@ public class Note2 implements Serializable
           && Objects.equals(otherNote.receivingDate, this.receivingDate);
    }
 
+	public long getAccountId() {
+		return accountId;
+	}
+
    public long getId(){
 	return id;   
    }
@@ -73,6 +89,10 @@ public class Note2 implements Serializable
       return Objects.hash(id, text, lastModification, receivingDate);
    }
 
+   public void setAccountId(long accountId){
+	   this.accountId = accountId;
+   }
+   
    public void setId(long id){
 	   this.id = id;
    }
