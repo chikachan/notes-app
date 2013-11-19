@@ -9,6 +9,7 @@
   <h:head>
     <meta charset="utf-8" />
     <meta http-equiv="refresh" content="#{session.maxInactiveInterval};url=#{request.getContextPath()}/mobile/pf_viewExpired.jsf" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
   </h:head>
 
     <pm:page title="#{msgs['NOTEBOOK_PAGE_TITLE']}">
@@ -33,6 +34,11 @@
     <!-- Main View -->
         <pm:view id="mainView" swatch="e">
             <pm:header title="#{msgs['MAIN_VIEW_TITLE']}">
+                <f:facet name="left">
+					<p:commandLink id="signin" >
+						<h:graphicImage name="images/plain_sign_in_black.png" />
+					</p:commandLink>
+				</f:facet>
                 <f:facet name="right">
                   <p:commandButton value="#{msgs['NEW']}" icon="plus" action="#{noteBook.initNew}" />
                 </f:facet>
@@ -76,4 +82,7 @@
 
     </pm:page>
 
+	<script src="https://login.persona.org/include.js"></script>	
+
 </f:view>
+
