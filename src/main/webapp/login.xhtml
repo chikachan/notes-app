@@ -1,0 +1,74 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" contentType="text/html"
+	encoding="utf-8">
+
+	
+	<h:outputText value="Abc" />
+	<p:commandLink>
+		<h:graphicImage name="images/plain_sign_in_black.png"
+		 id="signin" onclick="doBrowserIdLogin();"/>
+	</p:commandLink>
+
+
+
+
+
+<script src="https://login.persona.org/include.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+	<script type="text/javascript">
+	 var verifyBrowserIdLogin = function(assertion){
+		    if(assertion == null){
+		    return false;
+		    }
+
+		    jQuery.ajax({
+		        type: 'POST',
+		        url: 'browserid_security_check',
+		        
+		        success:function(data,textStatus,jqXHR){
+		          bounceToReturnLocation();
+		        },
+		        error: function(xhr,  ajaxOptions, thrownError){
+		          if (xhr.status == 404) {
+		            // if we get a 404 it means login was successful but intended resource does not exist
+		            // just let it go - let the user get the 404
+		            bounceToReturnLocation();
+		            return;
+		          }
+		          // fail
+		          DisplayAlert('loginError', 40, 30);
+		        }
+
+		    });
+		    
+		  };
+
+		  var loggedIn = false;
+		  var doBrowserIdLogin = function(){		
+		   
+		    if (loggedIn) {
+		      bounceToReturnLocation();
+		      return false;
+		    }
+
+		    //fetch the assertion
+		    navigator.id.get(function(assertion) {
+		      if (assertion) {
+		        //ok, check in server  
+		        verifyBrowserIdLogin(assertion);
+		      } else {
+		        //cancelled
+		        return false;
+		      }
+		    });
+		  };
+	</script>
+
+
+
+</f:view>
