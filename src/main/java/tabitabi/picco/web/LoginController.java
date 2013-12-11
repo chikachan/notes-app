@@ -50,7 +50,7 @@ public class LoginController {
 				account = accountsRepo.save(account);//TODO correct?
 			}
 			
-			request.setAttribute("user", account.getEmail());
+			request.getSession(false).setAttribute("account", account.getEmail());
 			
 			return "OK";//detach account
 
@@ -66,6 +66,22 @@ public class LoginController {
 
 		}
 		return "error";
+	}
+	
+	@RequestMapping(value = { "/logout" }, method = RequestMethod.POST,
+			produces = "text/plain")
+	@ResponseBody
+	public String logout(final HttpServletRequest request) {
+		
+		//TODO
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+			session.invalidate();
+			return "OK";
+		}
+		
+		return "Neee..";
+		
 	}
 
 	private void renewSession(final HttpServletRequest request) {

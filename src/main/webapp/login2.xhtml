@@ -7,21 +7,33 @@
 	encoding="utf-8">
   <h:head>
   </h:head>
+
 	
-	<h:outputText value="Abc" />
+	<h:outputText value="Login " />	
 	<p:commandLink>
 		<h:graphicImage name="images/plain_sign_in_black.png"
 		 id="signin" onclick="navigator.id.request();"/>
 	</p:commandLink>
 
+<br/>
+<br/>
 
+<h:outputText value="*#{sessionScope.account}*" />
+
+<br/>
+<br/>
+<h:outputText value="Logout " />	
+<p:commandLink>
+<h:graphicImage name="images/plain_sign_in_black.png"
+ id="logout" onclick="navigator.id.logout();"/>
+</p:commandLink>
 
 
 
 <script src="https://login.persona.org/include.js"></script>
 
 	<script type="text/javascript">
-	var currentUser = 'bob@example.com';
+	var currentUser = '#{account}';
 
 	navigator.id.watch({
 	  loggedInUser: currentUser,
@@ -54,7 +66,7 @@
 	      url: 'control/logout' // This is a URL on your website.	      
 	    });
 	    logoutRequest.done(function(res, status,xhr) {
-	    	alert("Logout OK");
+	    	//alert("Logout OK");
 	    	window.location.reload();
 	    });
 	    logoutRequest.fail(function(xhr, status, error) {
@@ -64,12 +76,6 @@
 	  
 	});
 	
-
-
-	var signoutLink = document.getElementById('signout');
-	if (signoutLink) {
-	  signoutLink.onclick = function() { navigator.id.logout(); };
-	}
 	
 	</script>
 
