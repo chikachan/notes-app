@@ -1,3 +1,4 @@
+package tabitabi.picco.browserid;
 /*
  * Code taken from 
  * https://github.com/mozilla/browserid-cookbook/blob/master/java/spring/src/pt/webdetails/browserid/BrowserIdResponse.java
@@ -7,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-package pt.webdetails.browserid;
+//package pt.webdetails.browserid;
 
 import java.util.Date;
 

@@ -10,24 +10,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pt.webdetails.browserid.BrowserIdResponse;
-import pt.webdetails.browserid.BrowserIdResponse.Status;
-import pt.webdetails.browserid.Verifier;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import tabitabi.picco.NotesAppException;
+import tabitabi.picco.browserid.BrowserIdResponse;
+import tabitabi.picco.browserid.BrowserIdResponse.Status;
+import tabitabi.picco.browserid.Verifier;
+import tabitabi.picco.model.Account;
+import tabitabi.picco.persistence.repository.AccountsRepository;
 
 @WebServlet(value = { "/login", "/logout" })
 public class PersonaServlet extends HttpServlet {
+	
+	private static final long serialVersionUID = -6146110902487181662L;
 
 	private static final String ASSERTION_PARAMETER = "assertion";
-
-	private static final long serialVersionUID = -6146110902487181661L;
+	@Autowired
+	private AccountsRepository accountsRepo;
+	
 
 	@Override
 	protected void doGet(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException,
 			IOException {
-
-		System.out.println("Here get");
+		
+		System.out.print("get");
 	}
 
 	@Override
@@ -35,11 +42,8 @@ public class PersonaServlet extends HttpServlet {
 			final HttpServletResponse response) throws ServletException,
 			IOException {
 
-		System.out.println("Here post");
-
 		String assertion = request.getParameter(ASSERTION_PARAMETER);
-		System.out.println("browserIdAssertion:" + assertion);
-		String audience = null;
+		String audience = "";
 		
 		if (assertion != null) {
 			audience = request.getRequestURL().toString();//TODO is this safe??
@@ -47,21 +51,35 @@ public class PersonaServlet extends HttpServlet {
 				URL url = new URL(audience);
 				audience = url.getHost();
 			} catch (MalformedURLException exc) {
-				throw new NotesAppException(exc);
+				throw new NotesAppException("Login erro invalid audince URL: ", exc); //TODO log?
 			}
 		}
 		Verifier verifier = new Verifier();
 		BrowserIdResponse browserIdResponse = verifier.verify(assertion, audience);
 		
 		if(Status.OK == browserIdResponse.getStatus()){
-			request.getSession();
+			String email = browserIdResponse.getEmail();
+			Account account = accountsRepo.findByEmail(email);
+			
 			
 		} else{
+			//Login error
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		
-		
 
+	}
+	
+	
+	void login(final BrowserIdResponse browserIdResponse){
+		if(BrowserIdResponse.Status.OK == browserIdResponse.getStatus()){
+			//look in db if the user exists, if it is in the DB load its info,
+			//if it is not in DB insert one
+			//copy old session
+			//invalidate session
+			//create a new session and put old attributes
+		}
+		
 	}
 
 }

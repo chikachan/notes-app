@@ -1,4 +1,5 @@
-package pt.webdetails.browserid;
+package tabitabi.picco.browserid;
+//package pt.webdetails.browserid;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
@@ -12,7 +13,6 @@ import org.json.JSONObject;
 import org.springframework.util.StringUtils;
 
 import tabitabi.picco.NotesAppException;
-import tabitabi.picco.web.WebClientDevWrapper;
 
 /**
  * Code taken from https://github.com/mozilla/browserid-cookbook/blob/master/java/spring/src/pt/webdetails/browserid/BrowserIdVerifier.java

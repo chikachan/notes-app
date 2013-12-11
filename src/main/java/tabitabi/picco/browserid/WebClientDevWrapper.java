@@ -1,4 +1,4 @@
-package tabitabi.picco.web;
+package tabitabi.picco.browserid;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
