@@ -23,7 +23,7 @@ import org.json.JSONObject;
  * &nbsp;&nbsp; if {@link Status#OK}:&nbsp; {@link #getEmail}, {@link #getAudience}, {@link #getExpires}, {@link #getIssuer} <br/>
  * &nbsp;&nbsp; if {@link Status#FAILURE}:&nbsp;  {@link #getReason} <br/>
 */
-public class BrowserIdResponse {
+public class BrowserIDResponse {
   
   private Status status;
   private String email;
@@ -98,23 +98,34 @@ public class BrowserIdResponse {
    * @param response result of a call to a BrowserID verify service
    * @throws JSONException if the response cannot be parsed as JSON markup.
    */
-  public BrowserIdResponse(String response) throws JSONException{
-    jsonResponse = new JSONObject(response);
-    status = Status.parse((String) jsonResponse.get(ResponseFields.STATUS));
-    
-    switch(status){
-      case OK:
-        email = jsonResponse.getString(ResponseFields.EMAIL);
-        audience = jsonResponse.getString(ResponseFields.AUDIENCE);
-        expires = jsonResponse.getLong(ResponseFields.EXPIRES);
-        if(jsonResponse.has(ResponseFields.ISSUER)) issuer = jsonResponse.getString(ResponseFields.ISSUER); 
-        break;
-      case FAILURE:
-        if(jsonResponse.has(ResponseFields.REASON)) reason = jsonResponse.getString(ResponseFields.REASON);
-        break;
-    }
-  
-  }
+	public BrowserIDResponse(String response) {
+		try {
+			jsonResponse = new JSONObject(response);
+			status = Status.parse((String) jsonResponse
+					.get(ResponseFields.STATUS));
+
+			switch (status) {
+			case OK:
+				email = jsonResponse.getString(ResponseFields.EMAIL);
+				audience = jsonResponse.getString(ResponseFields.AUDIENCE);
+				expires = jsonResponse.getLong(ResponseFields.EXPIRES);
+				if (jsonResponse.has(ResponseFields.ISSUER)) {
+					issuer = jsonResponse.getString(ResponseFields.ISSUER);
+				}
+				break;
+
+			case FAILURE:
+				if (jsonResponse.has(ResponseFields.REASON)) {
+					reason = jsonResponse.getString(ResponseFields.REASON);
+				}
+				break;
+			}
+
+		} catch (JSONException exc) {
+			throw new BrowserIDException(exc);
+
+		}
+	}
   
   /**
    * BrowserID response status

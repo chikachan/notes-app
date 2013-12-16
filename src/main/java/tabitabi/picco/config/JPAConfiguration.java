@@ -1,5 +1,6 @@
 package tabitabi.picco.config;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.naming.InitialContext;
@@ -41,6 +42,7 @@ public class JPAConfiguration {
 			DataSource ds = (DataSource) new InitialContext()
 					.lookup("java:comp/env/jdbc/notes-app");
 
+			Connection connection = ds.getConnection();
 			return ds;
 
 		} catch (NamingException exc) {

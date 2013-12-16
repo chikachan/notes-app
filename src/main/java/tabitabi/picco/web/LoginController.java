@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import tabitabi.picco.browserid.BrowserIdResponse;
-import tabitabi.picco.browserid.BrowserIdResponse.Status;
+import tabitabi.picco.browserid.BrowserIDResponse;
+import tabitabi.picco.browserid.BrowserIDResponse.Status;
 import tabitabi.picco.browserid.Verifier;
 import tabitabi.picco.model.Account;
 import tabitabi.picco.persistence.repository.AccountsRepository;
@@ -35,7 +35,7 @@ public class LoginController {
 	public String login(@RequestParam(required = true) final String assertion,
 			final HttpServletRequest request) {
 
-		BrowserIdResponse loginRepsonse = verifier.verify(assertion, AUDIENCE);
+		BrowserIDResponse loginRepsonse = verifier.verify(assertion, AUDIENCE);
 		Status status = loginRepsonse.getStatus();
 
 		if (status == Status.OK) {

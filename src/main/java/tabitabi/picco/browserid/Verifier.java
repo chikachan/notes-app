@@ -1,18 +1,16 @@
 package tabitabi.picco.browserid;
 //package pt.webdetails.browserid;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpException;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
-import org.springframework.util.StringUtils;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Scanner;
 
-import tabitabi.picco.NotesAppException;
+import javax.net.ssl.HttpsURLConnection;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Code taken from https://github.com/mozilla/browserid-cookbook/blob/master/java/spring/src/pt/webdetails/browserid/BrowserIdVerifier.java
@@ -22,52 +20,62 @@ public class Verifier {
 
 	
 	public static final String DEFAULT_URL = "https://verifier.login.persona.org/verify";
-	private String url;
+	//private String url;
 
 	
 	public Verifier() {
-		this.url = DEFAULT_URL;
+		//this.url = DEFAULT_URL;
 	}
 	
-	public BrowserIdResponse verify(String assertion, String audience) {
-	    
-	    if(!StringUtils.hasLength(assertion)) throw new IllegalArgumentException("assertion is mandatory");
-	    if(!StringUtils.hasLength(audience)) throw new IllegalArgumentException("audience is mandatory");
-	    
-	    HttpClient client = new DefaultHttpClient();
-	    boolean dev = true;
-	    if(dev){
-	    	client = WebClientDevWrapper.wrapClient(client);
+	public BrowserIDResponse verify(final String assertion, final String audience) {
+	    	   
+	    if(assertion == null || !(assertion.length() > 0)) {
+	    	 throw new IllegalArgumentException("assertion is mandatory");
 	    }
-	    	    
-		JSONObject body = new JSONObject();
+	    if(audience == null || !(audience.length() > 0)) {
+	    	 throw new IllegalArgumentException("audience is mandatory");
+	    }
+	    
+	    return executeVerifyRequest(assertion,audience);
+	   
+	}
+	
+	private BrowserIDResponse executeVerifyRequest(final String assertion,
+			final String audience) {
+
 		try {
-			// TODO: check certificate?
-			HttpPost post = new HttpPost(url);
-			post.addHeader("Content-Type", "application/json");
+
+			URL url = new URL(DEFAULT_URL);
+			String response = "";
+			HttpsURLConnection connection = (HttpsURLConnection) url
+					.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Content-Type", "application/json");
+			JSONObject body = new JSONObject();
 			body.put("assertion", assertion);
-			body.put("audience", audience);			 
-			post.setEntity(new StringEntity( body.toString()));
+			body.put("audience", audience);
+			connection.setDoOutput(true);
 
-			HttpResponse response = client.execute(post);
-			int statusCode = response.getStatusLine().getStatusCode();
+			
+			DataOutputStream wr = new DataOutputStream(
+					connection.getOutputStream());
+			wr.writeBytes(body.toString());
+			wr.flush();
+			InputStream rd = connection.getInputStream();
+			Scanner scanner = new Scanner(rd);
+			
+			response = scanner.useDelimiter("\\A").hasNext() ? scanner.next()
+					: "";
+			//TODOclose these resources ala java 7
+			
+			int responseCode = connection.getResponseCode();
+			System.out.print(responseCode);// TODO log
 
-			if (statusCode == 200) {
-				HttpEntity entity = response.getEntity();
+			return new BrowserIDResponse(response);
 
-				if (entity != null) {
-					return new BrowserIdResponse(EntityUtils.toString(entity));
-				}
-			}
-
-			throw new HttpException("failed" + statusCode);
-
-		} catch (Exception exc) {
-			throw new NotesAppException(exc);
-		} finally {
-			client.getConnectionManager().shutdown();
+		} catch (IOException | JSONException exc) {
+			throw new BrowserIDException(exc);
 		}
-
 	}
 	
 }
